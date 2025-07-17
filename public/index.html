@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sweet Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>🍬 Sweet Shop Management</h1>
+
+  <form id="addSweetForm">
+    <input type="text" placeholder="ID" id="id" required />
+    <input type="text" placeholder="Name" id="name" required />
+    <input type="text" placeholder="Category" id="category" required />
+    <input type="number" placeholder="Price" id="price" required />
+    <input type="number" placeholder="Quantity" id="quantity" required />
+    <button type="submit">Add Sweet</button>
+  </form>
+
+  <hr />
+
+  <input type="text" id="searchName" placeholder="Search by name..." />
+  <button onclick="searchByName()">Search</button>
+  <button onclick="renderSweets()">Reset</button>
+
+  <h2>🧁 Sweets List</h2>
+  <table id="sweetTable" border="1">
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Quantity</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
