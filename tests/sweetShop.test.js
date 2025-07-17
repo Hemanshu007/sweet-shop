@@ -133,4 +133,18 @@ describe('SweetShop', () => {
   });
 
 
+    test('should increase stock when sweets are restocked', () => {
+    const sweet = { id: '1003', name: 'Candy', category: 'Sugar-Based', price: 10, quantity: 40 };
+    shop.addSweet(sweet);
+
+    shop.restockSweet('1003', 20);
+    const updated = shop.getAllSweets().find(s => s.id === '1003');
+    expect(updated.quantity).toBe(60);
+  });
+
+  test('should throw error if sweet ID is invalid during restock', () => {
+    expect(() => shop.restockSweet('9999', 5)).toThrow('Sweet not found');
+  });
+
+
 });
