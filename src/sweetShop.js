@@ -40,6 +40,32 @@ class SweetShop {
       sweet.price >= min && sweet.price <= max
     );
   }
+ 
+    sortSweets(field) {
+    const validFields = ['price', 'name', 'quantity'];
+    if (!validFields.includes(field)) {
+      throw new Error('Invalid sort field');
+    }
+
+    return [...this.inventory].sort((a, b) => {
+      if (typeof a[field] === 'string') {
+        return a[field].localeCompare(b[field]);
+      } else {
+        return a[field] - b[field];
+      }
+    });
+  }
+
+    purchaseSweet(id, quantity) {
+    const sweet = this.inventory.find(item => item.id === id);
+    if (!sweet) {
+      throw new Error('Sweet not found');
+    }
+    if (sweet.quantity < quantity) {
+      throw new Error('Not enough stock to complete the purchase');
+    }
+    sweet.quantity -= quantity;
+  }
 
 }
 

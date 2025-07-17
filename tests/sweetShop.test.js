@@ -77,5 +77,60 @@ describe('SweetShop', () => {
     expect(result).toHaveLength(1);
     expect(result[0].name).toBe('Gulab Jamun');
   });
+    test('should sort sweets by price (ascending)', () => {
+    shop.addSweet({ id: '1001', name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 });
+    shop.addSweet({ id: '1002', name: 'Gulab Jamun', category: 'Milk-Based', price: 30, quantity: 15 });
+    shop.addSweet({ id: '1003', name: 'Candy', category: 'Sugar-Based', price: 10, quantity: 40 });
+
+    const result = shop.sortSweets('price');
+    expect(result[0].price).toBe(10);
+    expect(result[2].price).toBe(50);
+  });
+
+  test('should sort sweets by name (alphabetically)', () => {
+    shop.addSweet({ id: '1001', name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 });
+    shop.addSweet({ id: '1002', name: 'Gulab Jamun', category: 'Milk-Based', price: 30, quantity: 15 });
+    shop.addSweet({ id: '1003', name: 'Candy', category: 'Sugar-Based', price: 10, quantity: 40 });
+
+    const result = shop.sortSweets('name');
+    expect(result[0].name).toBe('Candy');
+    expect(result[2].name).toBe('Kaju Katli');
+  });
+
+  test('should sort sweets by quantity (ascending)', () => {
+    shop.addSweet({ id: '1001', name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 });
+    shop.addSweet({ id: '1002', name: 'Gulab Jamun', category: 'Milk-Based', price: 30, quantity: 15 });
+    shop.addSweet({ id: '1003', name: 'Candy', category: 'Sugar-Based', price: 10, quantity: 40 });
+
+    const result = shop.sortSweets('quantity');
+    expect(result[0].quantity).toBe(15);
+    expect(result[2].quantity).toBe(40);
+  });
+
+  test('should throw an error if sorting field is invalid', () => {
+    expect(() => shop.sortSweets('invalidField')).toThrow('Invalid sort field');
+  });
+
+
+    test('should reduce stock when sweets are purchased', () => {
+    const sweet = { id: '1001', name: 'Kaju Katli', category: 'Nut-Based', price: 50, quantity: 20 };
+    shop.addSweet(sweet);
+
+    shop.purchaseSweet('1001', 5);
+    const updated = shop.getAllSweets().find(s => s.id === '1001');
+    expect(updated.quantity).toBe(15);
+  });
+
+  test('should throw error if purchasing more than available stock', () => {
+    const sweet = { id: '1002', name: 'Gulab Jamun', category: 'Milk-Based', price: 30, quantity: 10 };
+    shop.addSweet(sweet);
+
+    expect(() => shop.purchaseSweet('1002', 15)).toThrow('Not enough stock to complete the purchase');
+  });
+
+  test('should throw error if sweet ID is invalid during purchase', () => {
+    expect(() => shop.purchaseSweet('9999', 1)).toThrow('Sweet not found');
+  });
+
 
 });
