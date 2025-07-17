@@ -22,6 +22,25 @@ class SweetShop {
     }
     this.inventory.splice(index, 1);
   }
+
+    searchByName(name) {
+    return this.inventory.filter(sweet =>
+      sweet.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
+
+  searchByCategory(category) {
+    return this.inventory.filter(sweet =>
+      sweet.category.toLowerCase() === category.toLowerCase()
+    );
+  }
+
+  searchByPriceRange(min, max) {
+    return this.inventory.filter(sweet =>
+      sweet.price >= min && sweet.price <= max
+    );
+  }
+
 }
 
 module.exports = { SweetShop };
