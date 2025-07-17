@@ -14,6 +14,15 @@ class SweetShop {
   getAllSweets() {
     return this.inventory;
   }
+
+  deleteSweet(id) {
+    const index = this.inventory.findIndex(sweet => sweet.id === id);
+    if (index === -1) {
+      throw new Error('Sweet with this ID does not exist');
+    }
+    this.inventory.splice(index, 1);
+  }
 }
 
 module.exports = { SweetShop };
+
